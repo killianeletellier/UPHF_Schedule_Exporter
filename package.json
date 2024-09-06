@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "name": "UPHF_Schedule_Exporter",
+  "version": "1.0.0",
+  "description": "Serve your UPHF schedule as an ICS file for import into external calendar clients",
+  "main": "index.js",
+  "repository": "https://github.com/killianeletellier/UPHF_Schedule_Exporter",
+  "author": "Killiane Letellier <killiane.letellier@mailo.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+}
