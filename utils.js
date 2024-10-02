@@ -58,7 +58,6 @@ async function askForSessionID() {
         
         axios.post(url, data, { headers })
             .then(response => {
-                console.log(response.request.path);
                 const sessionID = response.request.path.split('/')[4].split('=')[1];
                 resolve(sessionID);
             })
