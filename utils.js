@@ -2,6 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 let sessionID = '';
+let executionID = '';
 
 async function askForExecutionID() {
     console.log('[UTILS] Asking for execution ID...');
@@ -25,7 +26,7 @@ async function askForExecutionID() {
 
         axios.get(url, { headers })
             .then(response => {
-                const executionID = response.data.split('name="execution" value="')[1].split('"')[0];
+                executionID = response.data.split('name="execution" value="')[1].split('"')[0];
                 resolve(executionID);
             })
             .catch(error => {
@@ -54,7 +55,7 @@ async function askForSessionID() {
             'Cookie': 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE=en-GB'
         };
 
-        const data = `username=${process.env.username}&password=${encodeURIComponent(process.env.password)}&execution=${(await askForExecutionID())}&_eventId=submit&geolocation=`;
+        const data = `username=${process.env.username}&password=${encodeURIComponent(process.env.password)}&execution=${executionID}&_eventId=submit&geolocation=`;
         
         axios.post(url, data, { headers })
             .then(response => {
@@ -110,6 +111,7 @@ async function getICS() {
         return ics;
     } catch (error) {
         if (error === "Unauthenticated") {
+            executionID = await askForExecutionID();
             sessionID = await askForSessionID();
             return await getICS();
         }
